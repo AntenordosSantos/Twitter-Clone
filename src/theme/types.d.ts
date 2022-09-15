@@ -17,21 +17,26 @@ interface ColorSchema {
 interface Color {
   gray: ColorSchema;
   primary: ColorSchema;
-}
-
-interface FontInter {
-  light: string;
-  regular: string;
-  bold: string;
-}
-
-interface FontFamily {
-  inter: FontInter;
+  blue: {
+    active: string;
+  };
 }
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    color: Color;
-    fontFamily: FontFamily;
+    color: {
+      gray: ColorSchema;
+      primary: ColorSchema;
+      blue: {
+        active: string;
+      };
+    };
+    fontFamily: {
+      inter: {
+        light: string;
+        regular: string;
+        bold: string;
+      };
+    };
   }
 }
