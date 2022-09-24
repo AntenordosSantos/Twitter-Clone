@@ -4,7 +4,7 @@ import { login, LoginData, LoginVars } from '../operations/auth';
 
 export function useLoginMutation(
   options?: Omit<
-    UseMutationOptions<LoginData, AxiosError, LoginVars, string>,
+    UseMutationOptions<LoginData, AxiosError<LoginErrorData>, LoginVars, string>,
     'mutationKey' | 'mutationFn'
   >,
 ) {

@@ -23,6 +23,11 @@ export default function Login() {
   });
 
   return (
-    <LoginLayout onLogin={(email, password) => login({ email, password })} />
+    <LoginLayout
+      loading={false}
+      onLogin={(email, password) => login({ email, password })}
+      // eslint-disable-next-line no-console
+      onRegister={() => console.log('TODO')}
+    />
   );
 }
