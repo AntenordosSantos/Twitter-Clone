@@ -34,14 +34,23 @@ const Title = styled.Text`
 const ButtonWrapper = styled.View`
   padding-bottom: 12px;
 `;
-interface LoginLayoutProps {
+export interface LoginLayoutProps {
+  initialEmail?: string;
+  initialPassword?: string;
+  loading?: boolean;
   onLogin: (email: string, password: string) => void;
   onRegister: () => void;
 }
 
-export default function LoginLayout({ onLogin, onRegister }: LoginLayoutProps) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginLayout({
+  initialEmail = '',
+  initialPassword = '',
+  loading,
+  onLogin,
+  onRegister,
+}: LoginLayoutProps) {
+  const [email, setEmail] = useState(initialEmail);
+  const [password, setPassword] = useState(initialPassword);
 
   return (
     <Container>
@@ -66,6 +75,7 @@ export default function LoginLayout({ onLogin, onRegister }: LoginLayoutProps) {
             testID={'button-login'}
             text={t('login')}
             disabled={email.length === 0 || password.length === 0}
+            loading={loading}
             onPress={() => onLogin(email, password)}
           />
         </ButtonWrapper>
