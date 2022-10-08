@@ -1,32 +1,33 @@
 import 'styled-components';
-
-interface ColorSchema {
-  c25: string;
-  c50: string;
-  c100: string;
-  c200: string;
-  c300: string;
-  c400: string;
-  c500: string;
-  c600: string;
-  c700: string;
-  c800: string;
-  c900: string;
-}
-
-interface Color {
-  gray: ColorSchema;
-  primary: ColorSchema;
-  blue: {
-    active: string;
-  };
-}
-
 declare module 'styled-components' {
   export interface DefaultTheme {
     color: {
-      gray: ColorSchema;
-      primary: ColorSchema;
+      gray: {
+        c25: string;
+        c50: string;
+        c100: string;
+        c200: string;
+        c300: string;
+        c400: string;
+        c500: string;
+        c600: string;
+        c700: string;
+        c800: string;
+        c900: string;
+      };
+      primary: {
+        c25: string;
+        c50: string;
+        c100: string;
+        c200: string;
+        c300: string;
+        c400: string;
+        c500: string;
+        c600: string;
+        c700: string;
+        c800: string;
+        c900: string;
+      };
       blue: {
         active: string;
       };

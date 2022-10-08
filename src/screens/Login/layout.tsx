@@ -38,6 +38,7 @@ export interface LoginLayoutProps {
   initialEmail?: string;
   initialPassword?: string;
   loading?: boolean;
+  errorMessage?: string;
   onLogin: (email: string, password: string) => void;
   onRegister: () => void;
 }
@@ -46,6 +47,7 @@ export default function LoginLayout({
   initialEmail = '',
   initialPassword = '',
   loading,
+  errorMessage,
   onLogin,
   onRegister,
 }: LoginLayoutProps) {

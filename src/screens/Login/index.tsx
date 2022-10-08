@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuth } from 'src/context/auth';
@@ -10,21 +10,27 @@ type LoginNavProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 export default function Login() {
   const navigation = useNavigation<LoginNavProp>();
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const { onLogin } = useAuth();
 
-  const { mutate: login } = useLoginMutation({
+  const { mutate: login, isLoading } = useLoginMutation({
     onSuccess: ({ token }) => {
       onLogin(token);
       navigation.reset({
         routes: [{ name: 'MainTab' }],
       });
     },
+    onError: (error) => {
+      const message = error.response?.data?.errors?.[0]?.message;
+      setErrorMessage(message);
+    },
   });
 
   return (
     <LoginLayout
-      loading={false}
+      loading={isLoading}
+      errorMessage={errorMessage}
       onLogin={(email, password) => login({ email, password })}
       // eslint-disable-next-line no-console
       onRegister={() => console.log('TODO')}

@@ -13,8 +13,15 @@ storiesOf('screens/Login', module)
   .add('loading', () => (
     <LoginLayout
       {...defaultProps}
-      initialEmail={'luy,prantl@gmail.com'}
+      initialEmail={'email@email.com'}
       initialPassword={'12345678'}
       loading={true}
+    />
+  ))
+  .add('error', () => (
+    <LoginLayout
+      {...defaultProps}
+      initialEmail={'123'}
+      errorMessage={'Some error'}
     />
   ));
