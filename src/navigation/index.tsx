@@ -10,6 +10,7 @@ import Characters from 'src/screens/Characters';
 import Launch from 'src/screens/Launch';
 import Login from 'src/screens/Login';
 import Profile from 'src/screens/Profile';
+import Signup from 'src/screens/Siginup';
 import {
   RootStackParamList,
   MainTabParamList,
@@ -106,6 +107,7 @@ export default function RootNavigation(): JSX.Element {
             animation: 'slide_from_bottom',
           }}
         />
+        <RootStack.Screen name={'Signup'} component={Signup} />
         <RootStack.Screen
           name={'MainTab'}
           component={MainTab}

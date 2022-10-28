@@ -30,8 +30,10 @@ export const light: DefaultTheme = {
       c800: '#53389E',
       c900: '#42307D',
     },
-    blue: {
-      active: '#4C9EEB',
+    fixed: {
+      blue: '#4C9EEB',
+      red: '#E71D36',
+      green: '#2EC4B6',
     },
   },
   fontFamily: {
@@ -71,8 +73,10 @@ export const dark: DefaultTheme = {
       c800: '#F9F5FF',
       c900: '#FCFAFF',
     },
-    blue: {
-      active: '#4C9EEB',
+    fixed: {
+      blue: '#4C9EEB',
+      red: '#E71D36',
+      green: '#2EC4B6',
     },
   },
   fontFamily: {

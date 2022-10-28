@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
+import { isValidEmail, isValidPassword } from 'src/utils';
 import Button from 'src/components/Button';
 import NavHeader from 'src/components/NavHeader';
 import { StackScreen } from 'src/components/Screen';
+import TextInput from 'src/components/TextInput';
 import { t } from 'src/utils/i18n';
 
 const Container = styled(StackScreen)``;
@@ -10,17 +12,6 @@ const Container = styled(StackScreen)``;
 const ScrollView = styled.ScrollView`
   flex: 1;
   padding-horizontal: 20px;
-`;
-
-const TextInput = styled.TextInput.attrs(({ theme }) => ({
-  placeholderTextColor: theme.color.gray.c500,
-}))`
-  padding: 20px;
-  border-width: 1px;
-  border-color: ${({ theme }) => theme.color.gray.c900};
-  border-radius: 10px;
-  margin-bottom: 20px;
-  color: ${({ theme }) => theme.color.gray.c900};
 `;
 
 const Title = styled.Text`
@@ -34,6 +25,15 @@ const Title = styled.Text`
 const ButtonWrapper = styled.View`
   padding-bottom: 12px;
 `;
+
+const ErrorText = styled.Text`
+  font-family: ${({ theme }) => theme.fontFamily.inter.regular};
+  color: ${({ theme }) => theme.color.gray.c900};
+  font-size: 16px;
+  margin-vertical: 20px;
+  text-align: center;
+`;
+
 export interface LoginLayoutProps {
   initialEmail?: string;
   initialPassword?: string;
@@ -54,6 +54,10 @@ export default function LoginLayout({
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState(initialPassword);
 
+  const validEmail = isValidEmail(email);
+  const validPassword = isValidPassword(password);
+
+  const loginEnabled = validEmail && validPassword;
   return (
     <Container>
       <NavHeader title={t('login')} />
@@ -63,12 +67,14 @@ export default function LoginLayout({
           testID={'text-input-email'}
           value={email}
           placeholder={t('email')}
+          invalid={!validEmail}
           onChangeText={setEmail}
         />
         <TextInput
           testID={'text-input-password'}
           value={password}
           placeholder={t('password')}
+          invalid={!validPassword}
           secureTextEntry
           onChangeText={setPassword}
         />
@@ -76,7 +82,7 @@ export default function LoginLayout({
           <Button
             testID={'button-login'}
             text={t('login')}
-            disabled={email.length === 0 || password.length === 0}
+            disabled={!loginEnabled}
             loading={loading}
             onPress={() => onLogin(email, password)}
           />
@@ -89,6 +95,7 @@ export default function LoginLayout({
             onPress={() => onRegister()}
           />
         </ButtonWrapper>
+        {errorMessage ? <ErrorText>{errorMessage}</ErrorText> : null}
       </ScrollView>
     </Container>
   );

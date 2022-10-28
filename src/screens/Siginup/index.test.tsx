@@ -7,7 +7,7 @@ import { setupServer } from 'msw/node';
 import { AppProviders } from 'src/context';
 import { API_URL } from 'src/data/api';
 import { AuthData, AuthErrorData } from 'src/data/operations/auth';
-import LoginScreen from './';
+import SignupScreen from '.';
 
 const mockGoBack = jest.fn();
 const mockNavigate = jest.fn();
@@ -16,60 +16,63 @@ jest.mock('@react-navigation/native');
 
 (useNavigation as jest.Mock).mockReturnValue({
   goBack: mockGoBack,
-  navigate: mockNavigate,
   reset: mockReset,
+  navigate: mockNavigate,
 });
-
 const server = setupServer(
-  rest.post(`${API_URL}/login`, (_, res, ctx) => {
+  rest.post(`${API_URL}/register`, (_, res, ctx) => {
     return res(
       ctx.json<AuthData>({
         type: 'bearer',
         token:
-          'MjI.vcBJQDC7WsctVDs6NcFy8PxKMmhmeFMqhy-FYvdWxA9MzJUbPWWpJnfTpK1t',
-        expires_at: '2022-09-16T20:31:08.532-03:00',
+          'Mjk.zrj9OxVL3kNsHerFEnfClAR1sfucyD9KFbuyIa8Gz23JFOeV4mIPVjcdOfJD',
+        expires_at: '2022-09-30T20:00:58.116-03:00',
       }),
     );
   }),
 );
-describe('LoginScreen', () => {
+
+describe('SignupScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-
   beforeAll(() => server.listen());
-
   afterEach(() => server.resetHandlers());
 
   afterAll(() => server.close());
 
-  test('should disable login button if no email or password input', async () => {
+  test('should navigate back and disable register button if no input', async () => {
     const { getByTestId } = render(
       <AppProviders>
-        <LoginScreen />
+        <SignupScreen />
       </AppProviders>,
     );
 
-    const buttonLogin = getByTestId('button-login');
-    fireEvent.press(buttonLogin);
+    const buttonBack = getByTestId('button-back');
+    fireEvent.press(buttonBack);
     expect(mockReset).not.toBeCalled();
+
+    const buttonConfirm = getByTestId('button-confirm');
+    fireEvent.press(buttonConfirm);
+    expect(mockGoBack).toBeCalled();
   });
 
-  test('should reset navigation to MainTab on success login', async () => {
+  test('should reset navigation to MainTab on success response', async () => {
     const { getByTestId } = render(
       <AppProviders>
-        <LoginScreen />
+        <SignupScreen />
       </AppProviders>,
     );
 
-    const textInputEmail = getByTestId('text-input-email');
-    fireEvent.changeText(textInputEmail, 'u1@email.com');
+    fireEvent.changeText(getByTestId('text-input-nickname'), 'joao');
 
-    const textInputPassword = getByTestId('text-input-password');
-    fireEvent.changeText(textInputPassword, 'test1234');
+    fireEvent.changeText(getByTestId('text-input-name'), 'Joao');
 
-    const buttonLogin = getByTestId('button-login');
-    fireEvent.press(buttonLogin);
+    fireEvent.changeText(getByTestId('text-input-email'), 'joao@email.com');
+
+    fireEvent.changeText(getByTestId('text-input-password'), 'Teste123.');
+
+    fireEvent.press(getByTestId('button-confirm'));
 
     await waitFor(() => {
       expect(mockReset).toBeCalledWith({
@@ -78,10 +81,10 @@ describe('LoginScreen', () => {
     });
   });
 
-  test('should show error message on login error', async () => {
+  test('should show error message on error response', async () => {
     const errorMessage = 'Some error';
     server.use(
-      rest.post(`${API_URL}/login`, (_, res, ctx) => {
+      rest.post(`${API_URL}/register`, (_, res, ctx) => {
         return res(
           ctx.status(400),
           ctx.json<AuthErrorData>({
@@ -97,17 +100,20 @@ describe('LoginScreen', () => {
 
     const { getByTestId, findByText } = render(
       <AppProviders>
-        <LoginScreen />
+        <SignupScreen />
       </AppProviders>,
     );
-    const textInputEmail = getByTestId('text-input-email');
-    fireEvent.changeText(textInputEmail, 'Sophia@email.com');
 
-    const textInputPassword = getByTestId('text-input-password');
-    fireEvent.changeText(textInputPassword, 'test1234');
+    fireEvent.changeText(getByTestId('text-input-nickname'), 'joao');
 
-    const buttonLogin = getByTestId('button-login');
-    fireEvent.press(buttonLogin);
+    fireEvent.changeText(getByTestId('text-input-name'), 'Joao');
+
+    fireEvent.changeText(getByTestId('text-input-email'), 'joao@email.com');
+
+    fireEvent.changeText(getByTestId('text-input-password'), 'Teste123.');
+
+    fireEvent.press(getByTestId('button-confirm'));
+
     const errorText = await findByText(errorMessage);
     expect(errorText).toBeTruthy();
   });

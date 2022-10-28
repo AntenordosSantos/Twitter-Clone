@@ -28,15 +28,17 @@ declare module 'styled-components' {
         c800: string;
         c900: string;
       };
-      blue: {
-        active: string;
+      fixed: {
+        blue: string;
+        red: string;
+        green: string;
       };
     };
     fontFamily: {
       inter: {
-        light: string;
-        regular: string;
-        bold: string;
+        light: 'Inter300';
+        regular: 'Inter400';
+        bold: 'Inter700';
       };
     };
   }

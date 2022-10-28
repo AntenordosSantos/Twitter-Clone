@@ -3,34 +3,31 @@
 
 import { axiosInstance } from '../api';
 
+//auth
+export type AuthData = {
+  type: string;
+  token: string;
+  expires_at: string;
+};
+
+type ErrorInfo = {
+  message: string;
+};
+export type AuthErrorData = {
+  errors: ErrorInfo[];
+};
+
 //login
 export interface LoginVars {
   email: string;
   password: string;
 }
 
-export type LoginData = {
-  type: string;
-  token: string;
-  expires_at: string;
-};
-type ErrorInfo = {
-  message: string;
-};
-export type LoginErrorData = {
-  errors: ErrorInfo[];
-};
-
-export async function login({
-  email,
-  password,
-}: LoginVars): Promise<LoginData> {
-  const { data } = await axiosInstance.post<LoginData>(`/login`, {
+export async function login({ email, password }: LoginVars): Promise<AuthData> {
+  const { data } = await axiosInstance.post<AuthData>(`/login`, {
     email,
     password,
   });
-
-  //refreshedToken
   return data;
 }
 
@@ -44,4 +41,26 @@ export async function refreshToken(): Promise<RefreshTokenData> {
   return {
     token: 'mocked--refreshed-token',
   };
+}
+//register
+export interface RegisterVars {
+  nickname: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
+export async function register({
+  nickname,
+  name,
+  email,
+  password,
+}: RegisterVars): Promise<AuthData> {
+  const { data } = await axiosInstance.post<AuthData>(`/register`, {
+    nickname,
+    name,
+    email,
+    password,
+  });
+  return data;
 }
