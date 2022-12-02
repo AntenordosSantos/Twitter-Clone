@@ -8,9 +8,7 @@ const Container = styled.View`
   border-color: ${({ theme }) => theme.color.gray.c400};
 `;
 
-const Content = styled.View`
-  flex-direction: row;
-`;
+const Content = styled.View``;
 
 const Title = styled.Text`
   flex: 1;
@@ -20,8 +18,15 @@ const Title = styled.Text`
   text-align: center;
 `;
 
-const ButtonView = styled.View`
+const LeftButtonView = styled.View`
+  position: absolute;
+  left: 0px;
   width: 30px;
+`;
+
+const RightButtonView = styled.View`
+  position: absolute;
+  right: 0px;
 `;
 
 const BackButtonIcon = styled(ButtonIcon).attrs(({ theme }) => ({
@@ -31,20 +36,25 @@ const BackButtonIcon = styled(ButtonIcon).attrs(({ theme }) => ({
 
 interface NavHeaderProps {
   title: string;
+  RightComponent?: JSX.Element;
   onGoBack?: () => void;
 }
 
-export default function NavHeader({ title, onGoBack }: NavHeaderProps) {
+export default function NavHeader({
+  title,
+  RightComponent,
+  onGoBack,
+}: NavHeaderProps) {
   return (
     <Container>
       <Content>
-        <ButtonView>
+        <LeftButtonView>
           {onGoBack ? (
             <BackButtonIcon testID={'button-back'} onPress={() => onGoBack()} />
           ) : null}
-        </ButtonView>
+        </LeftButtonView>
         <Title>{title}</Title>
-        <ButtonView></ButtonView>
+        <RightButtonView>{RightComponent}</RightButtonView>
       </Content>
     </Container>
   );

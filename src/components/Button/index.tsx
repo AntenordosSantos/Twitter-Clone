@@ -20,9 +20,10 @@ const Container = styled.TouchableOpacity.attrs({
   border-radius: 20px;
   border-width: 2px;
   border-color: ${({ disabled, theme }) =>
-    disabled ? theme.color.gray.c600 : theme.color.fixed.blue};
+    disabled ? theme.color.fixed.lightBlue : theme.color.fixed.blue};
   align-items: center;
   justify-content: center;
+  padding-horizontal: 10px;
 `;
 
 interface TextProps {

@@ -63,10 +63,10 @@ describe('LoginScreen', () => {
     );
 
     const textInputEmail = getByTestId('text-input-email');
-    fireEvent.changeText(textInputEmail, 'u1@email.com');
+    fireEvent.changeText(textInputEmail, 'u2@email.com');
 
     const textInputPassword = getByTestId('text-input-password');
-    fireEvent.changeText(textInputPassword, 'test1234');
+    fireEvent.changeText(textInputPassword, 'Test1234');
 
     const buttonLogin = getByTestId('button-login');
     fireEvent.press(buttonLogin);
@@ -101,7 +101,7 @@ describe('LoginScreen', () => {
       </AppProviders>,
     );
     const textInputEmail = getByTestId('text-input-email');
-    fireEvent.changeText(textInputEmail, 'Sophia@email.com');
+    fireEvent.changeText(textInputEmail, 'sophia@email.com');
 
     const textInputPassword = getByTestId('text-input-password');
     fireEvent.changeText(textInputPassword, 'test1234');

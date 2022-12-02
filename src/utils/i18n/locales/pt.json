@@ -4,9 +4,17 @@
   "login": "Login",
   "register": "Cadastrar",
   "profile": "Perfil",
+  "feed": "Feed",
   "logout": "Logout",
   "character": "Personagem",
   "characters": "Personagens",
   "email": "Email",
-  "password": "Senha"
+  "password": "Senha",
+  "nickname": "Nickname",
+  "name": "Nome",
+  "confirmRegister": "Confirmar Cadastro",
+  "createPost": "Criar Post",
+  "textPlaceholder": "What’s happening?",
+  "tweet": "Tweet",
+  "cancel": "Cancel"
 }

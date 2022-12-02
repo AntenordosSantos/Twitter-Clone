@@ -1,14 +1,13 @@
 import React from 'react';
 import { jest } from '@jest/globals';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation /*, useRoute*/ } from '@react-navigation/native';
 import { fireEvent, render } from '@testing-library/react-native';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { AppProviders } from 'src/context';
 import { API_URL } from 'src/data/api';
-import { CHARACTER_1 } from 'src/data/mocks';
-import { CharacterData } from 'src/data/operations/characters';
-import CharacterScreen from './';
+import { POST_1, POST_2 } from 'src/data/mocks';
+import FeedScreen from './';
 
 const mockGoBack = jest.fn();
 const mockNavigate = jest.fn();
@@ -19,19 +18,19 @@ jest.mock('@react-navigation/native');
   navigate: mockNavigate,
 });
 
-(useRoute as jest.Mock).mockReturnValue({
-  params: {
-    id: CHARACTER_1.id,
-  },
-});
+// (useRoute as jest.Mock).mockReturnValue({
+//   params: {
+//     id: '',
+//   },
+// });
 
 const server = setupServer(
-  rest.get(`${API_URL}/character/${CHARACTER_1.id}`, (_, res, ctx) => {
-    return res(ctx.json<CharacterData>(CHARACTER_1));
+  rest.get(`${API_URL}/posts`, (_, res, ctx) => {
+    return res(ctx.json([POST_1, POST_2]));
   }),
 );
 
-describe('CharacterScreen', () => {
+describe('FeedScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -42,14 +41,14 @@ describe('CharacterScreen', () => {
 
   afterAll(() => server.close());
 
-  test('should show character info and handle navigation back', async () => {
+  test('should ...', async () => {
     const { findByText, getByTestId } = render(
       <AppProviders>
-        <CharacterScreen />
+        <FeedScreen />
       </AppProviders>,
     );
 
-    const title = await findByText(CHARACTER_1.name);
+    const title = await findByText('Feed');
     expect(title).toBeTruthy();
 
     const backButtonIcon = getByTestId('backButtonIcon');

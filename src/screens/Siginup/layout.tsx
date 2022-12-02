@@ -69,31 +69,31 @@ export default function SignupLayout({
 
   return (
     <Container>
-      <NavHeader title={t('Register')} onGoBack={onGoBack} />
+      <NavHeader title={t('register')} onGoBack={onGoBack} />
       <ScrollView>
         <TextInput
-          testID={'text=input-nickname'}
+          testID={'nickname'}
           placeholder={t('nickname')}
           value={nickname}
           invalid={!validNickname}
           onChangeText={(text) => setNickname(text)}
         />
         <TextInput
-          testID={'text=input-name'}
+          testID={'name'}
           placeholder={t('name')}
           value={name}
           invalid={!validName}
           onChangeText={(text) => setName(text)}
         />
         <TextInput
-          testID={'text-input-email'}
+          testID={'email'}
           placeholder={t('email')}
           value={email}
           invalid={!validEmail}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
-          testID={'text-input-password'}
+          testID={'password'}
           placeholder={t('password')}
           value={password}
           invalid={!validPassword}

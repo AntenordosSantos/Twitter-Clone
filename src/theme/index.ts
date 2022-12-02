@@ -32,8 +32,9 @@ export const light: DefaultTheme = {
     },
     fixed: {
       blue: '#4C9EEB',
-      red: '#E71D36',
-      green: '#2EC4B6',
+      lightBlue: '#B9DCF7',
+      red: '#e71d36',
+      green: '#2ec4b6',
     },
   },
   fontFamily: {
@@ -75,8 +76,9 @@ export const dark: DefaultTheme = {
     },
     fixed: {
       blue: '#4C9EEB',
-      red: '#E71D36',
-      green: '#2EC4B6',
+      lightBlue: '#B9DCF7',
+      red: '#e71d36',
+      green: '#2ec4b6',
     },
   },
   fontFamily: {
